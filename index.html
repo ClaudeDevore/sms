@@ -3518,20 +3518,16 @@ button:hover {
     }
     
     // 修改停止函数，同时清除定时器
-    const originalStopRequests = typeof stopRequests === 'function' ? stopRequests : null;
     function stopRequestsWithTimer() {
         if (scheduledTimer) {
             clearInterval(scheduledTimer);
             scheduledTimer = null;
             addLog('⏰ 定时任务已停止', 'system');
         }
-        if (originalStopRequests) {
-            originalStopRequests();
-        } else {
-            isRunning = false;
-            document.getElementById('sendBtn').style.display = 'block';
-            document.getElementById('stopBtn').style.display = 'none';
-        }
+        // 直接调用原来的停止逻辑
+        isRunning = false;
+        document.getElementById('sendBtn').style.display = 'block';
+        document.getElementById('stopBtn').style.display = 'none';
     }
     
        async function sendRequests() {
